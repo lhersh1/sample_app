@@ -7,6 +7,9 @@ gem 'bootstrap-sass' , '2.1'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'bcrypt-ruby', '3.0.1'
+gem 'faker', '1.0.1'
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 
 group :development, :test do
 gem 'sqlite3', '1.3.5'
