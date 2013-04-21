@@ -16,14 +16,13 @@ describe "Home page" do
 
    it_should_behave_like "all static pages" 
    it { should_not have_selector 'title', text: '| Home' }
-end
 
-describe "Help Page" do
-  before { visit help_path } 
-  let (:heading) {  'Help' }
-  let (:page_title) { 'Help' }
+#describe "Help Page" do
+ # before { visit help_path } 
+ # let (:heading) {  'Help' }
+ # let (:page_title) { 'Help' }
 
- it_should_behave_like "all static pages"
+ # it_should_behave_like "all static pages"
 
   describe "for signed-in users" do
    let(:user) { FactoryGirl.create(:user) }
@@ -40,6 +39,15 @@ describe "Help Page" do
        end
      end
   end
+end
+
+describe "Help page" do
+  before { visit help_path }
+ 
+  let (:heading) { 'Help' }
+  let (:page_title) { 'Help' }
+
+  it_should_behave_like "all static pages"
 end
 
 describe "About page" do
