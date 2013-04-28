@@ -17,11 +17,18 @@ describe "Home page" do
    it_should_behave_like "all static pages" 
    it { should_not have_selector 'title', text: '| Home' }
 
+#describe "Help Page" do
+ # before { visit help_path } 
+ # let (:heading) {  'Help' }
+ # let (:page_title) { 'Help' }
+
+ # it_should_behave_like "all static pages"
+
   describe "for signed-in users" do
    let(:user) { FactoryGirl.create(:user) }
    before do
-     FactoryGirl.create(:micropost, user: user, content: "Lorem")
-     FactoryGirl.create(:micropost, user: user, content: "Ipsum")
+     FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+     FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
      sign_in user
      visit root_path
    end
@@ -31,18 +38,7 @@ describe "Home page" do
          page.should have_selector("li##{item.id}", text: item.content)
        end
      end
-
-   describe "follower/following counts" do
-    let(:other_user) { FactoryGirl.create(:user) }
-    before do
-     other_user.follow!(user)
-     visit root_path
-   end
-
-    it { should have_link("0 following", href: following_user_path(user)) }
-    it { should have_link("1 followers", href: followers_user_path(user)) }
   end
- end
 end
 
 describe "Help page" do
@@ -84,5 +80,6 @@ it "should have the right links on the layout" do
    click_link "sample app"
    page.should have_selector 'title', text: full_title('')
 
+end
 end
 end
