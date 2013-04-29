@@ -16,6 +16,7 @@ describe "User pages" do
     it { should have_selector('title', text: 'All users')  }
     it { should have_selector('h1', text: 'All users') }
 
+
     describe "pagination" do
 
        before(:all)  { 30.times { FactoryGirl.create(:user) } }
@@ -66,13 +67,22 @@ end
   it { should have_selector('h1', text: user.name) }
   it { should have_selector('title', text: user.name) }
 
+  describe "follower/following counts" do
+    let(:other_user) { FactoryGirl.create(:user) }
+      before do
+       other_user.follow!(user)
+       visit user_path
+    end
+   end
+  it { should have_link("0 following", href: following_user_path(user)) }
+  it { should have_link("1 followers", href: followers_user_path(user)) }
 
-  describe "follow/unfollow buttons" do
+   describe "follow/unfollow buttons" do
    let(:other_user) { FactoryGirl.create(:user) }
    before { sign_in user }
 
-   describe "Following a user" do
-     before { visit user_path(other_user) }
+    describe "Following a user" do
+      before { visit user_path(other_user) }
    
      it "should increment the followed user count" do
        expect do
@@ -220,7 +230,7 @@ end
     end
    end
   end
-  end
+end 
   
   describe "following/followers" do
    let(:user) { FactoryGirl.create(:user) }
